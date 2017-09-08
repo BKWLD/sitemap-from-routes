@@ -11,6 +11,7 @@
     ],
     "require": {
         "php": ">=5.3.0",
+        "illuminate/database": "^5.0",
         "illuminate/routing": "^5.0",
         "illuminate/support": "^5.0",
         "roumen/sitemap": "^2.6"
@@ -21,10 +22,13 @@
         }
     },
     "extra": {
-    "laravel": {
-        "providers": [
-            "Bkwld\\SitemapFromRoutes\\ServiceProvider"
-        ]
+        "laravel": {
+            "providers": [
+                "Bkwld\\SitemapFromRoutes\\ServiceProvider"
+            ],
+            "aliases": {
+                "Sitemap": "Bkwld\\SitemapFromRoutes\\Facade"
+            }
+        }
     }
-},
 }

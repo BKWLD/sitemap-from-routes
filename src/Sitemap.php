@@ -3,6 +3,7 @@
 namespace Bkwld\SitemapFromRoutes;
 
 // Deps
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\URL;
 use Roumen\Sitemap\Sitemap as RoumenSitemap;
@@ -50,7 +51,7 @@ class Sitemap {
         $uri = $route->uri();
         if (preg_match('#\{(\w+)\}#', $uri, $matches)) {
             $model = 'App\\'.ucfirst($matches[1]);
-            $this->addModels($model, $sitemap);
+            $this->addModels($uri, $model, $sitemap);
         } else {
             $sitemap->add(URL::to($uri));
         }
@@ -59,15 +60,65 @@ class Sitemap {
     /**
      * Add public models to the sitemap
      *
+     * @param  string $uri
      * @param  string $class
      * @param  RoumenSitemap $sitemap
      * @return void
      */
-    public function addModels($model, RoumenSitemap $sitemap)
+    public function addModels($uri, $model, RoumenSitemap $sitemap)
     {
-        $model::listing()->get()->each(function($model) use ($sitemap) {
-            $sitemap->add($model->uri, $model->updated_at);
+        $query = $model::query();
+        if (method_exists($model, 'scopeForSitemap')) {
+            $query->forSitemap();
+        }
+        $query->get()->each(function($model) use ($uri, $sitemap) {
+            $this->addModel($uri, $model, $sitemap);
         });
+    }
+
+    /**
+     * Add a single model to the sitemap
+     *
+     * @param  string $uri
+     * @param  Model $model
+     * @param  RoumenSitemap $sitemap
+     * @return void
+     */
+    public function addModel($uri, Model $model, RoumenSitemap $sitemap)
+    {
+        $sitemap->add(
+            $this->makeUrl($uri, $model),
+            $this->makeDate($model));
+    }
+
+    /**
+     * Make the URL of the model
+     *
+     * @param  string $uri
+     * @param  Model $model
+     * @return string
+     */
+    public function makeUrl($uri, Model $model)
+    {
+        if (method_exists($model, 'getSitemapUrlAttribute')) {
+            return $model->sitemap_url;
+        } else {
+            return preg_replace('#\{(\w+)\}#', $model->getKey(), $uri);
+        }
+    }
+
+    /**
+     * Make the updated date
+     *
+     * @param  Model $model
+     * @return Carbon | string
+     */
+    public function makeDate(Model $model)
+    {
+        if ($model->usesTimestamps()) {
+            $column = $model->getUpdatedAtColumn();
+            return $model->$column;
+        }
     }
 
     /**
