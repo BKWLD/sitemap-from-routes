@@ -1,0 +1,23 @@
+{
+    "name": "bkwld/sitemap-from-routes",
+    "description": "Generate a sitemap directly from your route definitions",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Robert Reinhard",
+            "email": "info@bukwild.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/routing": "^5.0",
+        "illuminate/support": "^5.0",
+        "roumen/sitemap": "^2.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bkwld\\SitemapFromRoutes\\": "src/"
+        }
+    }
+}
