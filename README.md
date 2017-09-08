@@ -3,8 +3,8 @@
 Generate a sitemap directly from your Laravel routes/web.php using [roumen/sitemap](https://github.com/Laravelium/laravel-sitemap).
 
 ```php
-Sitemap::add(Route::get('news', 'News@index'))
-Sitemap::add('news/{article}', 'News@show'))
+Sitemap::add(Route::get('news', 'News@index'));
+Sitemap::add('news/{article}', 'News@show'));
 ```
 
 This works because, during install, you change the Route facade to point to a class of this package that adds a the fluent `sitemap` to Laravel `Route` instances.  The `sitemap` method looks at the uri of the route and unpacks any model bindings it finds, fetching all public instances of those models and adding them to the sitemap.
@@ -26,8 +26,8 @@ This works because, during install, you change the Route facade to point to a cl
 Call `sitemap()` from any routes you want to add to the sitemap.  For example:
 
 ```php
-Sitemap::add('news', 'News@index'))
-Sitemap::add('news/{article}', 'News@show')->name('article'))
+Sitemap::add('news', 'News@index'));
+Sitemap::add('news/{article}', 'News@show')->name('article'));
 ```
 
 Dynamic route parameters must be named the same as the models they should resolve.  So, in the above example, you must have an `App\Article` model.  
