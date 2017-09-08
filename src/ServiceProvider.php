@@ -6,7 +6,7 @@ namespace Bkwld\SitemapFromRoutes;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Roumen\Sitemap\SitemapServiceProvider as RoumenProvider;
 
-class ServiceProvider {
+class ServiceProvider extends BaseServiceProvider {
 
     /**
      * Register the service provider.
@@ -21,7 +21,12 @@ class ServiceProvider {
         // Bind the sitemap generating class
         $this->app->singleton(Sitemap::class, function($app) {
             return new Sitemap;
-        })
+        });
+
+        // Replace the router with subclass
+        $this->app->singleton('router', function ($app) {
+            return new Subclasses\Router($app['events'], $app);
+        });
     }
 
     /**

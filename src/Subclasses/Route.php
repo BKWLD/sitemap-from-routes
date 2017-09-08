@@ -1,9 +1,10 @@
 <?php
 
-namespace Bkwld\SitemapFromRoutes;
+namespace Bkwld\SitemapFromRoutes\Subclasses;
 
 // Deps
-use use Illuminate\Routing\Route as LaravelRoute;
+use Bkwld\SitemapFromRoutes\Sitemap;
+use Illuminate\Routing\Route as LaravelRoute;
 
 /**
  * Subclass Laravel's Route class to add fluent `sitemap()` method to it

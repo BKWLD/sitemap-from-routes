@@ -19,5 +19,12 @@
         "psr-4": {
             "Bkwld\\SitemapFromRoutes\\": "src/"
         }
+    },
+    "extra": {
+    "laravel": {
+        "providers": [
+            "Bkwld\\SitemapFromRoutes\\ServiceProvider"
+        ]
     }
+},
 }

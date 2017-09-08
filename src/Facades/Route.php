@@ -3,9 +3,9 @@
 namespace Bkwld\SitemapFromRoutes\Facades;
 
 use Illuminate\Support\Facades\Facade;
+use Bkwld\SitemapFromRoutes\Subclasses\Router;
 
 class Route extends Facade {
-
 
     /**
      * Get the registered name of the component.
@@ -14,7 +14,7 @@ class Route extends Facade {
      */
     protected static function getFacadeAccessor()
     {
-        return 'Bkwld\SitemapFromRoutes\Route';
+        return Router::class;
     }
 
 }
