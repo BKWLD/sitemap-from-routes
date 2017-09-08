@@ -22,11 +22,6 @@ class ServiceProvider extends BaseServiceProvider {
         $this->app->singleton(Sitemap::class, function($app) {
             return new Sitemap;
         });
-
-        // Replace the router with subclass
-        $this->app->singleton('router', function ($app) {
-            return new Subclasses\Router($app['events'], $app);
-        });
     }
 
     /**

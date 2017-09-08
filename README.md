@@ -14,7 +14,6 @@ This works because, during install, you change the Route facade to point to a cl
 
 1. Run `require add bkwld/sitemap-from-routes`
 2. Add to `config.app` providers: `Bkwld\SitemapFromRoutes\ServiceProvider::class`
-3. Edit the `Route` alias in `config.app` to be: `'Route' => Bkwld\SitemapFromRoutes\Facades\Route::class,`
 4. Install [roumen/sitemap](https://github.com/Laravelium/laravel-sitemap) assets: `php artisan vendor:publish --provider="Roumen\Sitemap\SitemapServiceProvider"`
 5. Add a route for the sitemap to your routes file: `Route::get('sitemap', 'Bkwld\SitemapFromRoutes\Controller@index')`.
 
